@@ -1598,7 +1598,7 @@ describe('parcoords constraint interactions - without defined axis ranges', func
     });
 });
 
-xdescribe('parcoords constraint interactions - with defined axis ranges', function() {
+describe('parcoords constraint interactions - with defined axis ranges', function() {
     function initialFigure() {
         return {
             data: [{
