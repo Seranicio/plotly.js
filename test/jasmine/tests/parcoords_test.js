@@ -894,7 +894,7 @@ describe('parcoords Lifecycle methods', function() {
     });
 });
 
-xdescribe('parcoords basic use', function() {
+describe('parcoords basic use', function() {
     var mockCopy;
     var gd;
 
