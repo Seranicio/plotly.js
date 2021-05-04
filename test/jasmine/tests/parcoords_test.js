@@ -365,7 +365,7 @@ describe('parcoords initialization tests', function() {
     });
 });
 
-describe('parcoords edge cases', function() {
+xdescribe('parcoords edge cases', function() {
     var gd;
     beforeEach(function() {
         gd = createGraphDiv();
@@ -894,7 +894,7 @@ xdescribe('parcoords Lifecycle methods', function() {
     });
 });
 
-describe('parcoords basic use', function() {
+xdescribe('parcoords basic use', function() {
     var mockCopy;
     var gd;
 
