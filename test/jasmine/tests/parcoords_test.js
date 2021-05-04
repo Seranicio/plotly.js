@@ -365,7 +365,7 @@ describe('parcoords initialization tests', function() {
     });
 });
 
-xdescribe('parcoords edge cases', function() {
+describe('parcoords edge cases', function() {
     var gd;
     beforeEach(function() {
         gd = createGraphDiv();
