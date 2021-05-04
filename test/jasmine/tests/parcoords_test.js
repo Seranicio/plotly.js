@@ -365,7 +365,7 @@ describe('parcoords initialization tests', function() {
     });
 });
 
-describe('parcoords edge cases', function() {
+xdescribe('parcoords edge cases', function() {
     var gd;
     beforeEach(function() {
         gd = createGraphDiv();
@@ -637,7 +637,7 @@ describe('parcoords edge cases', function() {
     });
 });
 
-describe('parcoords Lifecycle methods', function() {
+xdescribe('parcoords Lifecycle methods', function() {
     var gd;
     beforeEach(function() { gd = createGraphDiv(); });
     afterEach(purgeGraphDiv);
@@ -894,7 +894,7 @@ describe('parcoords Lifecycle methods', function() {
     });
 });
 
-describe('parcoords basic use', function() {
+xdescribe('parcoords basic use', function() {
     var mockCopy;
     var gd;
 
@@ -1206,7 +1206,7 @@ describe('parcoords basic use', function() {
     });
 });
 
-describe('parcoords react more attributes', function() {
+xdescribe('parcoords react more attributes', function() {
     var gd;
 
     beforeEach(function() {
@@ -1325,7 +1325,7 @@ describe('parcoords react more attributes', function() {
     });
 });
 
-describe('parcoords constraint interactions - without defined axis ranges', function() {
+xdescribe('parcoords constraint interactions - without defined axis ranges', function() {
     var gd, initialDashArray0, initialDashArray1;
 
     function initialFigure() {
@@ -1598,7 +1598,7 @@ describe('parcoords constraint interactions - without defined axis ranges', func
     });
 });
 
-describe('parcoords constraint interactions - with defined axis ranges', function() {
+xdescribe('parcoords constraint interactions - with defined axis ranges', function() {
     function initialFigure() {
         return {
             data: [{
@@ -1673,7 +1673,7 @@ describe('parcoords constraint interactions - with defined axis ranges', functio
     });
 });
 
-describe('parcoords constraint click interactions - with pre-defined constraint ranges', function() {
+xdescribe('parcoords constraint click interactions - with pre-defined constraint ranges', function() {
     function initialFigure() {
         return {
             data: [{
