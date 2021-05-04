@@ -1206,7 +1206,7 @@ describe('parcoords basic use', function() {
     });
 });
 
-xdescribe('parcoords react more attributes', function() {
+describe('parcoords react more attributes', function() {
     var gd;
 
     beforeEach(function() {
