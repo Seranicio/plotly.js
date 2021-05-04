@@ -637,7 +637,7 @@ describe('parcoords edge cases', function() {
     });
 });
 
-xdescribe('parcoords Lifecycle methods', function() {
+describe('parcoords Lifecycle methods', function() {
     var gd;
     beforeEach(function() { gd = createGraphDiv(); });
     afterEach(purgeGraphDiv);
