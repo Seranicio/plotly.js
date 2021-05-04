@@ -1325,7 +1325,7 @@ describe('parcoords react more attributes', function() {
     });
 });
 
-xdescribe('parcoords constraint interactions - without defined axis ranges', function() {
+describe('parcoords constraint interactions - without defined axis ranges', function() {
     var gd, initialDashArray0, initialDashArray1;
 
     function initialFigure() {
