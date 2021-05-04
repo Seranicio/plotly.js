@@ -894,7 +894,7 @@ xdescribe('parcoords Lifecycle methods', function() {
     });
 });
 
-describe('parcoords basic use', function() {
+xdescribe('parcoords basic use', function() {
     var mockCopy;
     var gd;
 
@@ -1206,7 +1206,7 @@ describe('parcoords basic use', function() {
     });
 });
 
-xdescribe('parcoords react more attributes', function() {
+describe('parcoords react more attributes', function() {
     var gd;
 
     beforeEach(function() {
@@ -1325,7 +1325,7 @@ xdescribe('parcoords react more attributes', function() {
     });
 });
 
-xdescribe('parcoords constraint interactions - without defined axis ranges', function() {
+describe('parcoords constraint interactions - without defined axis ranges', function() {
     var gd, initialDashArray0, initialDashArray1;
 
     function initialFigure() {
