@@ -13,7 +13,6 @@ var attributes = require('@src/traces/parcoords/attributes');
 var PC = require('@src/traces/parcoords/constants');
 
 var createGraphDiv = require('../assets/create_graph_div');
-var delay = require('../assets/delay');
 var destroyGraphDiv = require('../assets/destroy_graph_div');
 
 var mouseEvent = require('../assets/mouse_event');
@@ -58,12 +57,10 @@ function mostOfDrag(x1, y1, x2, y2) {
     mouseEvent('mousemove', x2, y2);
 }
 
-function purgeGraphDiv(done) {
+function purgeGraphDiv() {
     var gd = d3Select('.js-plotly-plot').node();
     if(gd) Plotly.purge(gd);
     destroyGraphDiv();
-
-    return delay(50)().then(done);
 }
 
 function getAvgPixelByChannel(id) {
@@ -371,8 +368,6 @@ describe('parcoords initialization tests', function() {
 describe('parcoords edge cases', function() {
     var gd;
     beforeEach(function() {
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
-
         gd = createGraphDiv();
     });
 
@@ -904,8 +899,6 @@ describe('parcoords basic use', function() {
     var gd;
 
     beforeEach(function() {
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
-
         mockCopy = Lib.extendDeep({}, mock);
         mockCopy.data[0].domain = {
             x: [0.1, 0.9],
@@ -1084,15 +1077,12 @@ describe('parcoords basic use', function() {
 
             mouseTo(324, 216);
             mouseTo(315, 218);
-
-            return delay(20)();
         })
         .then(function() {
             expect(hoverCalls).toBe(1);
             expect(unhoverCalls).toBe(0);
             mouseTo(329, 153);
         })
-        .then(delay(20))
         .then(function() {
             expect(hoverCalls).toBe(1);
             expect(unhoverCalls).toBe(1);
@@ -1360,20 +1350,8 @@ describe('parcoords constraint interactions - without defined axis ranges', func
         };
     }
 
-    var initialSnapDuration;
-    var shortenedSnapDuration = 20;
-    var snapDelay = 100;
-    var noSnapDelay = 20;
-    beforeAll(function() {
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
-
-        initialSnapDuration = PC.bar.snapDuration;
-        PC.bar.snapDuration = shortenedSnapDuration;
-    });
-
     afterAll(function() {
         purgeGraphDiv();
-        PC.bar.snapDuration = initialSnapDuration;
     });
 
     beforeEach(function() {
@@ -1400,7 +1378,7 @@ describe('parcoords constraint interactions - without defined axis ranges', func
         expect(dashArray.length).toBe(segmentCount, dashArray);
     }
 
-    it('@gl snaps ordinal constraints', function(done) {
+    xit('@gl snaps ordinal constraints', function(done) {
         var newDashArray;
 
         Plotly.react(gd, initialFigure())
@@ -1417,7 +1395,6 @@ describe('parcoords constraint interactions - without defined axis ranges', func
             checkDashCount(newDashArray, 1);
 
             mouseEvent('mouseup', 105, 190);
-            return delay(snapDelay)();
         })
         .then(function() {
             expect(getDashArray(0)).toBeCloseToArray(initialDashArray0);
@@ -1430,7 +1407,7 @@ describe('parcoords constraint interactions - without defined axis ranges', func
 
             mouseEvent('mouseup', 105, 240);
         })
-        .then(delay(snapDelay))
+
         .then(function() {
             expect(getDashArray(0)).toBeCloseToArray(initialDashArray0);
             expect(gd.data[0].dimensions[0].constraintrange).toBeCloseToArray([2.75, 4]);
@@ -1442,7 +1419,7 @@ describe('parcoords constraint interactions - without defined axis ranges', func
 
             mouseEvent('mouseup', 105, 260);
         })
-        .then(delay(snapDelay))
+
         .then(function() {
             newDashArray = getDashArray(0);
             checkDashCount(newDashArray, 2);
@@ -1455,7 +1432,7 @@ describe('parcoords constraint interactions - without defined axis ranges', func
 
             mouseEvent('mouseup', 105, 240);
         })
-        .then(delay(snapDelay))
+
         .then(function() {
             newDashArray = getDashArray(0);
             checkDashCount(newDashArray, 2);
@@ -1464,7 +1441,7 @@ describe('parcoords constraint interactions - without defined axis ranges', func
             // clear the whole thing
             click(105, 275);
         })
-        .then(delay(snapDelay))
+
         .then(function() {
             checkDashCount(getDashArray(0), 0);
             expect(gd.data[0].dimensions[0].constraintrange).toBeUndefined();
@@ -1472,7 +1449,7 @@ describe('parcoords constraint interactions - without defined axis ranges', func
             // click to select 1
             click(105, 250);
         })
-        .then(delay(noSnapDelay))
+
         .then(function() {
             checkDashCount(getDashArray(0), 1);
             expect(gd.data[0].dimensions[0].constraintrange).toBeCloseToArray([0.75, 1.25]);
@@ -1480,7 +1457,7 @@ describe('parcoords constraint interactions - without defined axis ranges', func
             // click to select 4
             click(105, 105);
         })
-        .then(delay(noSnapDelay))
+
         .then(function() {
             checkDashCount(getDashArray(0), 2);
             expect(gd.data[0].dimensions[0].constraintrange).toBeCloseTo2DArray([[0.75, 1.25], [3.75, 4]]);
@@ -1505,7 +1482,6 @@ describe('parcoords constraint interactions - without defined axis ranges', func
             checkDashCount(newDashArray, 1);
 
             mouseEvent('mouseup', 295, 190);
-            return delay(noSnapDelay)();
         })
         .then(function() {
             expect(getDashArray(1)).toBeCloseToArray(newDashArray);
@@ -1518,7 +1494,7 @@ describe('parcoords constraint interactions - without defined axis ranges', func
 
             mouseEvent('mouseup', 295, 240);
         })
-        .then(delay(noSnapDelay))
+
         .then(function() {
             expect(getDashArray(1)).toBeCloseToArray(newDashArray);
             expect(gd.data[0].dimensions[1].constraintrange).toBeCloseTo2DArray([[0.7309, 2.8134], [4.8959, 9]]);
@@ -1531,7 +1507,7 @@ describe('parcoords constraint interactions - without defined axis ranges', func
 
             mouseEvent('mouseup', 295, 260);
         })
-        .then(delay(noSnapDelay))
+
         .then(function() {
             expect(getDashArray(1)).toBeCloseToArray(newDashArray);
             expect(gd.data[0].dimensions[1].constraintrange).toBeCloseToArray([-2.913369429404415, 9]);
@@ -1539,7 +1515,7 @@ describe('parcoords constraint interactions - without defined axis ranges', func
         .then(done, done.fail);
     });
 
-    it('@gl will only select one region when multiselect is disabled', function(done) {
+    xit('@gl will only select one region when multiselect is disabled', function(done) {
         var newDashArray;
 
         Plotly.react(gd, initialFigure())
@@ -1556,7 +1532,7 @@ describe('parcoords constraint interactions - without defined axis ranges', func
 
             mouseEvent('mouseup', 295, 240);
         })
-        .then(delay(noSnapDelay))
+
         .then(function() {
             expect(getDashArray(1)).toBeCloseToArray(newDashArray);
             expect(gd.data[0].dimensions[1].constraintrange).toBeCloseToArray([0.7309, 2.8134]);
@@ -1568,7 +1544,7 @@ describe('parcoords constraint interactions - without defined axis ranges', func
 
             mouseEvent('mouseup', 105, 260);
         })
-        .then(delay(snapDelay))
+
         .then(function() {
             var finalDashArray = getDashArray(0);
             expect(finalDashArray).not.toBeCloseToArray(newDashArray);
@@ -1611,7 +1587,7 @@ describe('parcoords constraint interactions - without defined axis ranges', func
             mostOfDrag(295, 250, 295, 150);
             mouseEvent('mouseup', 295, 150);
         })
-        .then(delay(snapDelay))
+
         .then(function() {
             var rgb = getAvgPixelByChannel(testLayer);
 
@@ -1647,19 +1623,9 @@ describe('parcoords constraint interactions - with defined axis ranges', functio
     }
 
     var gd;
-    var initialSnapDuration;
-    var shortenedSnapDuration = 20;
-    var noSnapDelay = 20;
-    beforeAll(function() {
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
-
-        initialSnapDuration = PC.bar.snapDuration;
-        PC.bar.snapDuration = shortenedSnapDuration;
-    });
 
     afterAll(function() {
         purgeGraphDiv();
-        PC.bar.snapDuration = initialSnapDuration;
     });
 
     beforeEach(function() {
@@ -1678,7 +1644,6 @@ describe('parcoords constraint interactions - with defined axis ranges', functio
             // first: move above range
             mostOfDrag(x, 200, x, 100);
             mouseEvent('mouseup', x, 100);
-            return delay(noSnapDelay)();
         })
         .then(function() {
             expect(gd.data[0].dimensions[1].constraintrange).toBeCloseToArray([5.75, 8.25]);
@@ -1686,21 +1651,21 @@ describe('parcoords constraint interactions - with defined axis ranges', functio
             mostOfDrag(x, 110, x, 210);
             mouseEvent('mouseup', x, 210);
         })
-        .then(delay(noSnapDelay))
+
         .then(function() {
             expect(gd.data[0].dimensions[1].constraintrange).toBeCloseToArray([3.75, 6.25]);
             // move below range
             mostOfDrag(x, 200, x, 300);
             mouseEvent('mouseup', x, 300);
         })
-        .then(delay(noSnapDelay))
+
         .then(function() {
             expect(gd.data[0].dimensions[1].constraintrange).toBeCloseToArray([1.75, 4.25]);
             // move back
             mostOfDrag(x, 290, x, 190);
             mouseEvent('mouseup', x, 190);
         })
-        .then(delay(noSnapDelay))
+
         .then(function() {
             expect(gd.data[0].dimensions[1].constraintrange).toBeCloseToArray([3.75, 6.25]);
         })
@@ -1731,17 +1696,9 @@ describe('parcoords constraint click interactions - with pre-defined constraint 
     }
 
     var gd;
-    var initialSnapDuration;
-    var shortenedSnapDuration = 20;
-    var snapDelay = 100;
-    beforeAll(function() {
-        initialSnapDuration = PC.bar.snapDuration;
-        PC.bar.snapDuration = shortenedSnapDuration;
-    });
 
     afterAll(function() {
         purgeGraphDiv();
-        PC.bar.snapDuration = initialSnapDuration;
     });
 
     beforeEach(function() {
@@ -1757,7 +1714,6 @@ describe('parcoords constraint click interactions - with pre-defined constraint 
 
             // click to add a new item to the selection
             mouseClick(295, 200);
-            delay(snapDelay)();
         })
         .then(function() {
             expect(gd._fullData[0].dimensions[1].constraintrange).toBeCloseToArray([[0.75, 2.25], [2.75, 3.25]]);
@@ -1765,7 +1721,6 @@ describe('parcoords constraint click interactions - with pre-defined constraint 
             // click to deselect all
             mouseClick(295, 205);
         })
-        .then(delay(snapDelay)())
         .then(function() {
             expect(gd._fullData[0].dimensions[1].constraintrange).toEqual(undefined);
         })
