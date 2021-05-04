@@ -1206,7 +1206,7 @@ xdescribe('parcoords basic use', function() {
     });
 });
 
-describe('parcoords react more attributes', function() {
+xdescribe('parcoords react more attributes', function() {
     var gd;
 
     beforeEach(function() {
@@ -1325,7 +1325,7 @@ describe('parcoords react more attributes', function() {
     });
 });
 
-describe('parcoords constraint interactions - without defined axis ranges', function() {
+xdescribe('parcoords constraint interactions - without defined axis ranges', function() {
     var gd, initialDashArray0, initialDashArray1;
 
     function initialFigure() {
@@ -1598,7 +1598,7 @@ describe('parcoords constraint interactions - without defined axis ranges', func
     });
 });
 
-xdescribe('parcoords constraint interactions - with defined axis ranges', function() {
+describe('parcoords constraint interactions - with defined axis ranges', function() {
     function initialFigure() {
         return {
             data: [{
@@ -1673,7 +1673,7 @@ xdescribe('parcoords constraint interactions - with defined axis ranges', functi
     });
 });
 
-xdescribe('parcoords constraint click interactions - with pre-defined constraint ranges', function() {
+describe('parcoords constraint click interactions - with pre-defined constraint ranges', function() {
     function initialFigure() {
         return {
             data: [{
